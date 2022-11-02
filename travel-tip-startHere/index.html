@@ -11,7 +11,7 @@
 <body>
     <h1 class="pageTitle">TravelTip Starter</h1>
     <container class="mapController flex-box">
-        <div id="map" style="width: 850px; height: 500px;"></div>
+        <div id="map" style="width: 400px; height: 300px;"></div>
         <div class="buttonContainer">
             <button onclick="onAddMarker()" class="mapBtn btn-add-marker">Add Marker To Location</button>
             <button onclick="onGetUserPos()" class="mapBtn btn-user-pos">Get User Position</button>
@@ -25,6 +25,7 @@
     <p>Locations:
     <pre class="locs"></pre>
     </p>
+    <div class="saved-locs"></div>
     <script type="module" src="js/app.controller.js"></script>
 </body>
 </html>

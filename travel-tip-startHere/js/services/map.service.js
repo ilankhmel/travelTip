@@ -5,12 +5,16 @@ export const mapService = {
     panTo,
     onSetLocationName,
     onSaveLocation,
+    getSavedLocs,
+    deleteLocation
 }
 
 
 // Var that is used throughout this Module (not global)
 var gMap
 var gLocationName = ''
+const SAVE_KEY = 'saveLocsDB'
+var gSavedLocations = storageService.load(SAVE_KEY) || []
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
@@ -85,17 +89,43 @@ function onSetLocationName(val){
 
 function onSaveLocation(obj){
     //{id, name, lat, lng, weather, createdAt, updatedAt}
-    var obj =  {
+    var currentdate = new Date(); 
+    var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes()
+
+
+    var object =  {
                 // id: makeId(),
-                name: !gLocationName ? obj.name : gLocationName,
+                name: gLocationName,
+                location: obj.name,
                 lat: obj.lat,
                 lng: obj.lng,
-                // weather: getWeather(locs),
-                createdAt: Date.now(),
+                weather: '',
+                createdAt: datetime,
                 updatedAt:''
                 };
+        
+    // gSavedLocations.push(obj)
+    // storageService.save(SAVE_KEY, gSavedLocations)
+    getWeather(object)
+}
 
-    storageService.save(`${obj.name}`, obj)
+function getWeather(obj) {
+    const lat = obj.lat
+    const lng = obj.lng
+    const API_KEY = '592d51682f56991d7299003310f4640a'
+    const Adress = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=${API_KEY}`
+    return fetch(Adress).then((res) => res.json()).then((res) => ({
+        name:` ${res.name},${res.sys.country}`, weatherDesc: res.weather[0].description, windSpeed: res.wind.speed,
+        temp: res.main.temp, minTemp: res.main.temp_min, maxTemp: res.main.temp_max
+    })).then((res) => {
+        obj.weather = res
+        return obj
+    }).then((obj) => storageService.save(`${obj.name}`, obj))
+    // storageService.save(${obj.name}, obj)
 }
 
 function getNameByGeo(latlng) {
@@ -159,4 +189,16 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getSavedLocs(){
+    return gSavedLocations
+}
+
+
+function deleteLocation(name){
+    console.log(gSavedLocations);
+    var locIdx = gSavedLocations.findIndex(loc=>loc.name === name)
+    gSavedLocations.splice(locIdx, 1)
+    storageService.save(SAVE_KEY, gSavedLocations)
 }

@@ -1,5 +1,7 @@
+import {mapService} from './map.service.js'
 export const locService = {
-    getLocs
+    getLocs,
+    
 }
 
 
@@ -15,5 +17,4 @@ function getLocs() {
         }, 2000)
     })
 }
-
 
