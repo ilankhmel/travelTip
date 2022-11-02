@@ -1,9 +1,14 @@
-*{
+/* *{
   font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
   background-color: rgb(97, 97, 97);
+}
+
+img{
+  width: 10px;
+  height: auto;
 }
 
 .pageTitle{
@@ -39,3 +44,31 @@ body{
   background-color:rgb(141, 169, 209) ;
 }
 
+.main-flex{
+  display: flex;
+} */
+
+container{
+  display: flex;
+  flex-direction: column;
+}
+
+container >*{
+  margin: 10px;
+}
+.main-flex{
+  display: flex;
+} 
+
+.saved-loc{
+  border: 3px solid black;
+  padding: 5px;
+}
+
+.mapBtn{
+  padding: 5px;
+  background-color: aqua;
+  font-family: cursive;
+  border-radius: 20px;
+  margin: 5px;
+}

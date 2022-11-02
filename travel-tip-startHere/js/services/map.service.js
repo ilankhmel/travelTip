@@ -1,4 +1,6 @@
 import {storageService} from './storage.service.js'
+// import {controller} from './/app.controller.js'
+
 export const mapService = {
     initMap,
     addMarker,
@@ -45,9 +47,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 
 
 function addMarker(loc) {
+    var img = document.querySelector('img')
     var marker = new google.maps.Marker({
         position: loc,
         map: gMap,
+        // icon: 'icons/placeholder.png',
         title: 'Hello World!'
     })
    
@@ -56,6 +60,8 @@ function addMarker(loc) {
         addInfoWindow(loc, res)
        
     })
+
+
     
     function addInfoWindow(loc, res) {
         const infowindow = new google.maps.InfoWindow({
@@ -67,13 +73,18 @@ function addMarker(loc) {
             ariaLabel: "Uluru",
         });
 
+        
+
         marker.addListener("click", () => {
             infowindow.open({
                 anchor: marker,
                 map: gMap,
             });
         });
+
     }
+
+    
   
     return marker
 }
@@ -105,7 +116,7 @@ function onSaveLocation(obj){
         
     // gSavedLocations.push(obj)
     // storageService.save(SAVE_KEY, gSavedLocations)
-    getWeather(object)
+    getWeather(object).then(controller.renderSavedLocations())
 }
 
 function getWeather(obj) {

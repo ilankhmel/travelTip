@@ -1,6 +1,9 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { storageService } from './services/storage.service.js'
+export const controller = {
+    renderSavedLocations
+}
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -78,6 +81,7 @@ function renderSavedLocations(){
             <h2>Name: ${loc.name}</h2>
             <p>Located At: ${loc.location}</p>
             <p>Created At: ${loc.createdAt}</p>
+            <p>Weather now is: : ${loc.weather.weatherDesc}</p>
             <button onclick="onGoToLocation(${`{lat: ${loc.lat}, lng: ${loc.lng}}`})">Go!</button>
             <button onclick="onDeleteLocation('${loc.name}')">Delete</button>
         </div>`
