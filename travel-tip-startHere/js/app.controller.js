@@ -11,6 +11,7 @@ window.onSetLocationName = mapService.onSetLocationName
 window.onSaveLocation = mapService.onSaveLocation
 window.onGoToLocation = onGoToLocation
 window.onDeleteLocation = onDeleteLocation
+window.goToCurrLocation = locService.goToCurrLocation
 
 
 function onInit() {

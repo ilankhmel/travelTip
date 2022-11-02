@@ -1,7 +1,7 @@
 import {mapService} from './map.service.js'
 export const locService = {
     getLocs,
-    
+    goToCurrLocation
 }
 
 
@@ -16,5 +16,22 @@ function getLocs() {
             resolve(locs)
         }, 2000)
     })
+}
+
+
+
+function goToCurrLocation(){
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          }
+
+          onPanTo(pos.lat, pos.lng)
+    }
+  )}
 }
 
