@@ -74,6 +74,7 @@ function onPanTo(lat, lng) {
 function renderSavedLocations(){
     console.log('in');
     var savedLocs = storageService.load('saveLocsDB') 
+    console.log(savedLocs)
     var strHTML = ''
     savedLocs.forEach(loc => 
         strHTML+=
