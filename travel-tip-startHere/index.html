@@ -19,6 +19,10 @@
             <button onclick="onPanTo()" class="mapBtn btn-pan">Pan to Tokyo</button>
             <button onclick="goToCurrLocation()">Go To Your Location</button>
         </div>
+        <div class="searchSpecLoc">
+            <button onclick="onSearchLoc()">Search</button>
+            <input type="search" id="searchLocation" onchange="onInputSearch(this.val)">
+        </div>
     </container>
 
 
@@ -29,4 +33,5 @@
     <div class="saved-locs"></div>
     <script type="module" src="js/app.controller.js"></script>
 </body>
+
 </html>
