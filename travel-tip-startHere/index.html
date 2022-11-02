@@ -18,6 +18,10 @@
             <button onclick="onGetLocs()" class="mapBtn btn-get-locs">Get Locations</button>
             <button onclick="onPanTo()" class="mapBtn btn-pan">Pan to Tokyo</button>
         </div>
+        <div class="searchSpecLoc">
+            <button onclick="onSearchLoc()">Search</button>
+            <input type="search" id="searchLocation" onchange="onInputSearch(this.val)">
+        </div>
     </container>
 
 
@@ -28,4 +32,5 @@
     <div class="saved-locs"></div>
     <script type="module" src="js/app.controller.js"></script>
 </body>
+
 </html>
