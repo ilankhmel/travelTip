@@ -6,6 +6,8 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onSetLocationName = mapService.onSetLocationName
+window.onSaveLocation = mapService.onSaveLocation
 
 function onInit() {
     mapService.initMap()
@@ -51,3 +53,4 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
