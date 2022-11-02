@@ -19,8 +19,20 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap)
+            gMap.addListener("click", (event) => {
+                // console.log('clicked', event);
+                // console.log('lat', event.latLng.lat());
+                // console.log('lang', event.latLng.lng());
+
+                addMarker(event.latLng)
+                // showModal(event.latLng)
+                // console.log(gMap);
+
+              });
         })
+       
 }
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -28,6 +40,7 @@ function addMarker(loc) {
         map: gMap,
         title: 'Hello World!'
     })
+    console.log(marker);
     return marker
 }
 
