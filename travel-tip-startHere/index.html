@@ -18,10 +18,11 @@
             <button onclick="onGetLocs()" class="mapBtn btn-get-locs">Get Locations</button>
             <button onclick="onPanTo()" class="mapBtn btn-pan">Pan to Tokyo</button>
             <button onclick="goToCurrLocation()">Go To Your Location</button>
+            <button onclick="onCopyLink()">Copy Link</button>
         </div>
         <div class="searchSpecLoc">
             <button onclick="onSearchLoc()">Search</button>
-            <input type="search" id="searchLocation" onchange="onInputSearch(this.val)">
+            <input type="search" id="searchLocation" oninput="onInputSearch(this.value)">
         </div>
     </container>
 

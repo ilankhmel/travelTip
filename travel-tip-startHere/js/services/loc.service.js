@@ -29,7 +29,6 @@ function goToCurrLocation(){
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           }
-
           onPanTo(pos.lat, pos.lng)
     }
   )}

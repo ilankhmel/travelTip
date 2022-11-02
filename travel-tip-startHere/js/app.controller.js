@@ -12,16 +12,22 @@ window.onSaveLocation = mapService.onSaveLocation
 window.onGoToLocation = onGoToLocation
 window.onDeleteLocation = onDeleteLocation
 window.goToCurrLocation = locService.goToCurrLocation
+window.getLatLng = mapService.getLatLng
+window.onInputSearch = onInputSearch
+window.onSearchLoc = onSearchLoc
+window.onCopyLink = onCopyLink
 
+var gSearchTerm =''
 
 function onInit() {
-    mapService.initMap()
-        .then(() => {
-            console.log('Map is ready')
-        })
-        .catch(() => console.log('Error: cannot init map'))
+    // mapService.initMap()
+    //     .then(() => {
+    //         console.log('Map is ready')
+    //     })
+    //     .catch(() => console.log('Error: cannot init map'))
 
-        renderSavedLocations()
+    mapService.renderPageByQueryStringParams()
+    renderSavedLocations()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -90,4 +96,19 @@ function onGoToLocation(obj){
 function onDeleteLocation(name){
     mapService.deleteLocation(name)
 
+}
+
+function onInputSearch(term){
+    gSearchTerm = term
+}
+
+function onSearchLoc(){
+    getLatLng(gSearchTerm,  mapService.addMarker)
+    
+}
+
+function onCopyLink(){
+    const link = new URLSearchParams(window.location.search)
+    console.log(link);
+    navigator.clipboard.writeText(`https://ilankhmel.github.io/travelTip/index.html?${link}`);
 }

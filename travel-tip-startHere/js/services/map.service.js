@@ -6,7 +6,9 @@ export const mapService = {
     onSetLocationName,
     onSaveLocation,
     getSavedLocs,
-    deleteLocation
+    deleteLocation,
+    getLatLng,
+    renderPageByQueryStringParams
 }
 
 
@@ -29,9 +31,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('Map!', gMap)
             gMap.addListener("click", (event) => {
                
-                console.log(event.latLng);
+                // console.log(event.latLng);
                 addMarker(event.latLng)
-              
+
+                // console.log('lat', gMap.center.lat());
+                // console.log('lng', gMap.center.lng());
+                setQueryParams(gMap.center.lat(), gMap.center.lng())
 
             });
         })
@@ -124,8 +129,8 @@ function getNameByGeo(latlng) {
     return geocoder.geocode(
         { 'latLng': latlng },
         function (results, status) {
-            // console.log(results);
-            // console.log(status);
+            console.log(results);
+            console.log(status);
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
                     var add = results[0].formatted_address;
@@ -153,6 +158,22 @@ function getNameByGeo(latlng) {
 
     )
 }
+
+
+ function getLatLng(stAddress, cb){
+    var geocoder;
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': stAddress}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        gMap.setCenter(results[0].geometry.location);
+
+        return cb(results[0].geometry.location);
+      } else {
+        return cb(-1);
+      }
+    });
+  
+  }
 // function addInfoWindow(){
 //     const infowindow = new google.maps.InfoWindow({
 //         content: 'contentSring',
@@ -194,4 +215,28 @@ function deleteLocation(name){
 }
 
 
+
+function setQueryParams(lat, lng) {
+  
+    const queryStringParams = `?lat=${lat}&lng=${lng}`
+    const newUrl =
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        window.location.pathname +
+        queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+
+
+function renderPageByQueryStringParams() {
+    const queryStringParams = new URLSearchParams(window.location.search)
+
+    //URL params obj 
+        var lat = queryStringParams.get('lat') || 20
+        var lng = queryStringParams.get('lng') || 20
+        console.log(lat, lng);
+        initMap(+lat, +lng)
+    }
 
