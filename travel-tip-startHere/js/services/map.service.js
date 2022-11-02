@@ -28,15 +28,10 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             console.log('Map!', gMap)
             gMap.addListener("click", (event) => {
-                // console.log('clicked', event);
-                // console.log('lat', event.latLng.lat());
-                // console.log('lang', event.latLng.lng());
-
-                // var infoWindow = addInfoWindow()
+               
                 console.log(event.latLng);
                 addMarker(event.latLng)
-                // showModal(event.latLng)
-                // console.log(gMap);
+              
 
             });
         })
@@ -50,13 +45,11 @@ function addMarker(loc) {
         map: gMap,
         title: 'Hello World!'
     })
-    // console.log(marker);
-
-    // addInfoWindow(marker)
+   
     var title = getNameByGeo(loc).then((res)=>{return(res.results[0].address_components[3].long_name + ', ' + res.results[0].address_components[5].long_name)})
     title.then((res)=>{
         addInfoWindow(loc, res)
-        // console.log(res);
+       
     })
     
     function addInfoWindow(loc, res) {
@@ -76,10 +69,7 @@ function addMarker(loc) {
             });
         });
     }
-    // getNameByGeo(loc).then((res)=>{console.log(res.results)})
-    
-    // console.log(getNameByGeo(loc))
-    // getNameByGeo(loc).then((res)=>{console.log(res.json())})
+  
     return marker
 }
 
@@ -88,7 +78,7 @@ function onSetLocationName(val){
 }
 
 function onSaveLocation(obj){
-    //{id, name, lat, lng, weather, createdAt, updatedAt}
+  
     var currentdate = new Date(); 
     var datetime = "Last Sync: " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
@@ -124,7 +114,7 @@ function getWeather(obj) {
     })).then((res) => {
         obj.weather = res
         return obj
-    }).then((obj) => storageService.save(`${obj.name}`, obj))
+    }).then((obj) => gSavedLocations.push(obj)).then((obj)=> storageService.save(SAVE_KEY, gSavedLocations))
     // storageService.save(${obj.name}, obj)
 }
 
@@ -202,3 +192,6 @@ function deleteLocation(name){
     gSavedLocations.splice(locIdx, 1)
     storageService.save(SAVE_KEY, gSavedLocations)
 }
+
+
+
