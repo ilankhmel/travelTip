@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1 class="pageTitle">TravelTip Starter</h1>
+    <h1 class="pageTitle" >TravelTip Starter</h1>
 
 <div class="main-flex">
 
@@ -19,12 +19,11 @@
             <button onclick="onSearchLoc()">Search</button>
             <input type="search" id="searchLocation" oninput="onInputSearch(this.value)">
         </div>
-        <div id="map" style="width: 400px; height: 300px;"></div>
+        <div id="map" style="width: 600px; height: 400px;"></div>
         <div class="buttonContainer">
-            <button onclick="onAddMarker()" class="mapBtn btn-add-marker">Add Marker To Location</button>
+            <!-- <button onclick="onAddMarker()" class="mapBtn btn-add-marker">Add Marker To Location</button> -->
             <button onclick="onGetUserPos()" class="mapBtn btn-user-pos">Get User Position</button>
-            <button onclick="onGetLocs()" class="mapBtn btn-get-locs">Get Locations</button>
-            <button onclick="onPanTo()" class="mapBtn btn-pan">Pan to Tokyo</button>
+            <!-- <button onclick="onGetLocs()" class="mapBtn btn-get-locs">Get Locations</button> -->
             <button onclick="goToCurrLocation()" class="mapBtn">Go To Your Location</button>
             <button onclick="onCopyLink()" class="mapBtn">Copy Link</button>
         </div>
